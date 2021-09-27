@@ -2,6 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from fixture.session import SessionHelper
+from fixture.project import ProjectHelper
 from selenium.webdriver.support.select import Select
 import re
 
@@ -23,6 +24,7 @@ class Application:
             raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(1)
         self.session = SessionHelper(self)
+        self.project = ProjectHelper(self)
         self.baseUrl = baseUrl
 
     # common

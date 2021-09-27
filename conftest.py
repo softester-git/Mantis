@@ -33,7 +33,7 @@ def app(request):
             target = json.load(f)
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, baseUrl=target["web"]["baseUrl"])
-    fixture.session.ensure_login(username=target["web"]["username"], password=target["web"]["password"])
+    fixture.session.ensure_login(username=target["webadmin"]["username"], password=target["webadmin"]["password"])
     return fixture
 
 
