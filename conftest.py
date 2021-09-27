@@ -27,7 +27,6 @@ def app(request):
     global target
     browser = request.config.getoption("--browser")
     root_path = os.path.dirname(os.path.abspath(__file__))
-    target = None
     if target is None:
         config_file = os.path.join(root_path, request.config.getoption("--target"))
         with open(config_file) as f:
