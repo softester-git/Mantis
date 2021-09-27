@@ -23,5 +23,18 @@ class DbFixture:
             cursor.close()
         return(project_list)
 
+    def project_count(self):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select count(*) as cnt from mantis_project_table")
+            row = cursor.fetchone()
+            out = row[0]
+        except:
+            out = False
+        finally:
+            cursor.close()
+        return(out)
+
+
     def destroy(self):
         self.connection.close()

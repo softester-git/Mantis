@@ -15,7 +15,8 @@ class ProjectHelper:
         self.open_projects_page()
         wd.find_element_by_xpath("//button[@type='submit']").click()
         self.fill_project_form(project)
-        wd.find_element_by_xpath(u"//input[@value='Добавить проект']").click()
+        wd.find_element_by_xpath("//input[@value='Добавить проект']").click()
+        wd.find_element_by_link_text("Продолжить").click()
 
     def open_projects_page(self):
         wd = self.app.wd
@@ -34,7 +35,6 @@ class ProjectHelper:
         if not project.enabled:
             wd.find_element_by_xpath("//form[@id='manage-project-create-form']/div/div[2]/div/div/table/tbody/tr[3]/td[2]/label/span").click()
         wd.find_element_by_id("project-view-state").click()
-        #Select(wd.find_element_by_id("project-view-state")).select_by_visible_text(project.view_state)
         Select(wd.find_element_by_id("project-view-state")).select_by_value(project.view_state)
         wd.find_element_by_id("project-description").click()
         wd.find_element_by_id("project-description").clear()
@@ -43,3 +43,10 @@ class ProjectHelper:
     def random_string(self, prefix, maxlen):
         symbols = string.ascii_letters + string.digits
         return (prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]))
+
+    def delete(self, project_id):
+        wd = self.app.wd
+        self.open_projects_page()
+        wd.find_element_by_xpath("//a[@href='manage_proj_edit_page.php?project_id=" + project_id + "']").click()
+        wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
+        wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
