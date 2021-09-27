@@ -8,6 +8,7 @@ class JamesHelper:
 
     def ensure_user_exist(self, username, password):
         session = JamesHelper.Session(host="localhost", port=4555, username="root", password="root")
+        print(session.is_users_registered(username))
         if session.is_users_registered(username):
             session.reset_password(username, password)
         else:
@@ -31,8 +32,11 @@ class JamesHelper:
             self.telnet.write(text.encode("ascii"))
 
         def is_users_registered(self, username):
-            self.write("verify %s\n" % (username))
-            res = self.telnet.expect([b"exist", b"does not exist"])
+            self.write("verify %s\n" % username)
+            st0 = "User " + username + " exists"
+            st1 = "User " + username + " does not exist"
+            res = self.telnet.expect([st0.encode("ascii"), st1.encode("ascii")])
+            print(res)
             return(res[0] == 0)
 
         def create_user(self, username, password):
