@@ -1,3 +1,6 @@
+from time import sleep
+
+
 class SessionHelper:
 
     def __init__(self, app):
@@ -6,17 +9,20 @@ class SessionHelper:
     def login(self, username, password):
         wd = self.app.wd
         self.app.open_home_page()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
+        wd.find_element_by_id("username").click()
+        wd.find_element_by_id("username").clear()
+        wd.find_element_by_id("username")
+        wd.find_element_by_id("username").send_keys(username)
+        wd.find_element_by_xpath(u"//input[@value='Вход']").click()
+        wd.find_element_by_id("password").click()
+        wd.find_element_by_id("password").clear()
+        wd.find_element_by_id("password").send_keys(password)
+        wd.find_element_by_xpath(u"//input[@value='Вход']").click()
 
     def logout(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("Logout").click()
+        wd.find_element_by_xpath("//div[@id='navbar-container']/div[2]/ul/li[3]/a/i[2]").click()
+        wd.find_element_by_link_text(u"Выход").click()
 
     def ensure_logout(self):
         wd = self.app.wd
@@ -25,7 +31,7 @@ class SessionHelper:
 
     def is_logged_in(self):
         wd = self.app.wd
-        return len(wd.find_elements_by_link_text("Logout")) > 0
+        return len(wd.find_elements_by_link_text(u"Выход")) > 0
 
     def is_logged_in_as(self, username):
         wd = self.app.wd
@@ -33,7 +39,8 @@ class SessionHelper:
 
     def get_logged_user(self):
         wd = self.app.wd
-        return wd.find_element_by_xpath("//div/div[1]/form/b").text[1:-1]
+        user_link = (wd.find_element_by_xpath("//div[@id='breadcrumbs']/ul/li/a").text).split(" ( ")
+        return(user_link[0])
 
     def ensure_login(self, username, password):
         if self.is_logged_in():

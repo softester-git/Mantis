@@ -1,6 +1,4 @@
 import mysql.connector
-from model.group import Group
-from model.contact import Contact
 
 
 class DbFixture:

@@ -32,7 +32,7 @@ def app(request):
         with open(config_file) as f:
             target = json.load(f)
     if fixture is None or not fixture.is_valid():
-        fixture = Application(browser=browser, baseUrl=target["web"]["baseUrl"], photoPath=root_path)
+        fixture = Application(browser=browser, baseUrl=target["web"]["baseUrl"])
     fixture.session.ensure_login(username=target["web"]["username"], password=target["web"]["password"])
     return fixture
 
@@ -46,15 +46,9 @@ def stop(request):
     return fixture
 
 
-@pytest.fixture
-def check_ui(request):
-    return(request.config.getoption("--check_ui"))
-
-
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox")
     parser.addoption("--target", action="store", default="target.json")
-    parser.addoption("--check_ui", action="store_true")
 
 
 def pytest_generate_tests(metafunc):

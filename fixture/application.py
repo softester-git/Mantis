@@ -2,17 +2,13 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from fixture.session import SessionHelper
-from fixture.group import GroupHelper
-from fixture.contact import ContactHelper
 from selenium.webdriver.support.select import Select
 import re
-import random
-import string
 
 
 class Application:
 
-    def __init__(self, browser, baseUrl, photoPath):
+    def __init__(self, browser, baseUrl):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
@@ -27,11 +23,7 @@ class Application:
             raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(1)
         self.session = SessionHelper(self)
-        self.group = GroupHelper(self)
-        self.contact = ContactHelper(self)
         self.baseUrl = baseUrl
-        self.photoPath = photoPath
-
 
     # common
     def open_home_page(self):
@@ -66,27 +58,3 @@ class Application:
             return True
         except:
             return False
-
-    def merge_phones_like_on_home_page(self, cont):
-        cont.home = "+" + cont.home[2:] if cont.home.startswith("00") else cont.home
-        cont.mobile = "+" + cont.mobile[2:] if cont.mobile.startswith("00") else cont.mobile
-        cont.work = "+" + cont.work[2:] if cont.work.startswith("00") else cont.work
-        cont.phone2 = "+" + cont.phone2[2:] if cont.phone2.startswith("00") else cont.phone2
-        merg_phones = "\n".join(filter(lambda x: x != "",
-                                map(lambda x: self.clear(x),
-                                    filter(lambda x: x is not None,
-                                           [self.merge_text_like_on_home_page(cont.home), self.merge_text_like_on_home_page(cont.mobile), self.merge_text_like_on_home_page(cont.work), self.merge_text_like_on_home_page(cont.phone2)]))))
-        return(merg_phones)
-
-    def merge_emails_like_on_home_page(self, cont):
-        merg_emails = "\n".join(filter(lambda x: x != "",
-                                       filter(lambda x: x is not None,
-                                              [self.merge_text_like_on_home_page(cont.email), self.merge_text_like_on_home_page(cont.email2), self.merge_text_like_on_home_page(cont.email3)])))
-        return(merg_emails)
-
-    def clear(self, s):
-        return (re.sub("[() -]", "", s))
-
-    def merge_text_like_on_home_page(self, text):
-        merge_text = ' '.join(text.split())
-        return(merge_text)
