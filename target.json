@@ -16,5 +16,12 @@
     "host": "localhost",
     "username": "mantis",
     "password": "mantis"
+  },
+  "james": {
+    "host": "localhost"
+  },
+  "mantis": {
+    "username": "administrator",
+    "password": "Vfynbc1Gfhjkm2"
   }
 }

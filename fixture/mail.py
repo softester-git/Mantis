@@ -10,7 +10,7 @@ class MailHelper:
 
     def get_mail(self, subject, username, password):
         for i in range(5):
-            pop = poplib.POP3("localhost")
+            pop = poplib.POP3(self.app.config["james"]["host"])
             pop.user(username)
             pop.pass_(password)
             num = pop.stat()[0]

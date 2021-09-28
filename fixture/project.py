@@ -47,6 +47,6 @@ class ProjectHelper:
     def delete(self, project_id):
         wd = self.app.wd
         self.open_projects_page()
-        wd.find_element_by_xpath("//a[@href='manage_proj_edit_page.php?project_id=" + project_id + "']").click()
+        wd.find_element_by_xpath("//a[@href='manage_proj_edit_page.php?project_id=" + str(project_id) + "']").click()
         wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
         wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
