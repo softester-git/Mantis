@@ -4,6 +4,9 @@ from selenium.webdriver.chrome.options import Options
 from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
 from fixture.james import JamesHelper
+from fixture.signup import SignupHelper
+from fixture.mail import MailHelper
+
 from selenium.webdriver.support.select import Select
 import re
 
@@ -27,6 +30,8 @@ class Application:
         self.session = SessionHelper(self)
         self.project = ProjectHelper(self)
         self.james = JamesHelper(self)
+        self.signup = SignupHelper(self)
+        self.mail = MailHelper(self)
         self.baseUrl = baseUrl
 
     # common
