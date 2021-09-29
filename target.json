@@ -22,6 +22,7 @@
   },
   "mantis": {
     "username": "administrator",
-    "password": "Vfynbc1Gfhjkm2"
+    "password": "Vfynbc1Gfhjkm2",
+    "base_url": "http://localhost/mantisbt-2.25.2/api/soap/mantisconnect.php?wsdl"
   }
 }
