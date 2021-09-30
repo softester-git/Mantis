@@ -13,7 +13,7 @@ import re
 
 class Application:
 
-    def __init__(self, browser, baseUrl):
+    def __init__(self, browser, baseUrl, config):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
@@ -34,6 +34,7 @@ class Application:
         self.mail = MailHelper(self)
         self.soap = SoapHelper(self)
         self.baseUrl = baseUrl
+        self.config = config
 
     # common
     def open_home_page(self):
