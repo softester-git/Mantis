@@ -1,7 +1,7 @@
 from model.project import Project
 
 
-def test_add_project(app, db):
+def test_add_project(app):
     project_name = app.project.random_string("proj_name_",10)
     project = Project(name=project_name, status="50", enabled=True, view_state="50", description="Project description")
     old_projects = app.soap.get_projects(app.config["mantis"]["username"], app.config["mantis"]["password"], app.config["mantis"]["base_url"])
