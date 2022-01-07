@@ -16,7 +16,11 @@ class SoapHelper:
         except WebFault:
             return(False)
 
-    def get_projects(self, username, password, base_url):
+    def get_projects(self):
+        username = self.app.config["mantis"]["username"]
+        password = self.app.config["mantis"]["password"]
+        base_url = self.app.config["mantis"]["base_url"]
+
         client = Client(base_url)
         try:
             l = client.service.mc_projects_get_user_accessible(username, password)
